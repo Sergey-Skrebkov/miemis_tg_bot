@@ -1,6 +1,6 @@
 import {IConfigService} from "./IConfigService";
 
-export class ConfigService implements IConfigService{
+export class ConfigService implements IConfigService {
 
     constructor() {
 
