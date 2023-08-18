@@ -10,6 +10,7 @@
   "author": "Sergey Skrebkov",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^20.5.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
@@ -19,6 +20,8 @@
   },
   "dependencies": {
     "@types/pg": "^8.10.2",
-    "pg": "^8.11.3"
+    "dotenv": "^16.3.1",
+    "pg": "^8.11.3",
+    "telegraf": "^4.12.2"
   }
 }
