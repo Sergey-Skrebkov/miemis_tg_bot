@@ -8,13 +8,15 @@ import {handleException} from "./middlewares/handleException";
 import {checkChatIdMiddleware} from "./middlewares/checkChatIdMiddleware";
 import {rightMiddleware} from "./middlewares/rightMiddleware";
 import {logMiddleware} from "./middlewares/logMiddleware";
+import {commandsListForAuthorizeUser} from "./commands/commandsListForAuthorizeUser";
 
 /**
  * Класс для инициализации телеграм бота
  */
 export class Bot {
-    bot: Telegraf<CustomBotContext>;
-    commands: Command[];
+    private readonly bot: Telegraf<CustomBotContext>;
+    private readonly commands: Command[];
+    private readonly authCommands: Command[];
 
     constructor(private readonly configService: IConfigService) {
         this.bot = new Telegraf<CustomBotContext>(configService.getBotToken());
@@ -23,7 +25,8 @@ export class Bot {
         this.bot.use(handleException) //миделфэйр для обработки ошибок что-бы бот не дох когда что-то ловит
         this.bot.use(checkChatIdMiddleware)
         this.bot.use(logMiddleware)
-        this.commands = commandsList(this.bot); //Лист команд импортируемый из функций
+        this.commands = commandsList(this.bot) //Лист команд импортируемый из функций
+        this.authCommands = commandsListForAuthorizeUser(this.bot)
     }
 
     /**
@@ -34,6 +37,9 @@ export class Bot {
             command.handle();
         }
         this.bot.use(rightMiddleware)
+        for (const authCommand of this.authCommands) {
+            authCommand.handle()
+        }
         this.bot.launch();
     }
 }

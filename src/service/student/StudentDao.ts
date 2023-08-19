@@ -26,9 +26,10 @@ export class StudentDao {
         await this.ctx.db.queryOne(`
             update student.student
             set password_for_sending = null,
-                chat_id = $2
+                chat_id = $2,
+                student_take_password = true
             where id = $1
-        `, [id, ])
+        `, [id, this.ctx.chatId])
     }
 
     public async checkChatId(chatId: number): Promise<boolean> {
