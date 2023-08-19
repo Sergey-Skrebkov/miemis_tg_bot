@@ -18,7 +18,7 @@ export class StudentService {
         if (!student.password || student.chatId) {
             return `Вы уже получили пароль`
         }
-        await this.studentDao.deleteStudentPasswordFromDB(student.id)
+        await this.studentDao.deleteStudentPasswordFromDBandSetChatId(student.id)
         return `Поздравляем вас с поступление в МИЭМИС
         ваш логин: ${student.login}
         пароль: ${student.password}.

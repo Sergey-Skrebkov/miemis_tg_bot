@@ -1,5 +1,5 @@
 import {CertificateDto} from "./CertificateDto";
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 import {ResponseError} from "../../exceptions/ResponseError";
 
 export class CertificateService {

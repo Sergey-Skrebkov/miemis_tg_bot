@@ -1,6 +1,6 @@
 import {Context} from "telegraf";
 
-async function handleExceptions(ctx: Context, next: any) {
+async function handleException(ctx: Context, next: any) {
     try {
         await next()
     } catch (err: any) {
@@ -14,4 +14,4 @@ async function handleExceptions(ctx: Context, next: any) {
     }
 }
 
-export {handleExceptions}
+export {handleException}

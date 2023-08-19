@@ -22,7 +22,8 @@ export class StartCommand extends Command {
             const contact = botCtx.message.contact;
             const phoneNumber = contact.phone_number;
             const service = new StudentService(botCtx.ctx)
-            botCtx.reply(await service.getAuthenticateMessage(phoneNumber))
+            botCtx.reply(await service.getAuthenticateMessage(phoneNumber),
+                Markup.removeKeyboard())
         })
     }
 

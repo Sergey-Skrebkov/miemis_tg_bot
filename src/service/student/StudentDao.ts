@@ -1,5 +1,6 @@
 import {RequestContext} from "RequestContext";
 import {StudentDto} from "./StudentDto";
+import {isEmpty} from "lodash";
 
 export class StudentDao {
 
@@ -21,11 +22,21 @@ export class StudentDao {
         `, [phoneNumber])
     }
 
-    public async deleteStudentPasswordFromDB(id: string): Promise<void> {
+    public async deleteStudentPasswordFromDBandSetChatId(id: string): Promise<void> {
         await this.ctx.db.queryOne(`
             update student.student
-            set password_for_sending = null
+            set password_for_sending = null,
+                chat_id = $2
             where id = $1
-        `, [id])
+        `, [id, ])
+    }
+
+    public async checkChatId(chatId: number): Promise<boolean> {
+        const row = await this.ctx.db.querySelectOne(`
+        select true
+        from student.student
+        where chat_id = $1
+        `, [chatId])
+        return !isEmpty(row)
     }
 }
