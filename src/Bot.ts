@@ -9,6 +9,7 @@ import {checkChatIdMiddleware} from "./middlewares/checkChatIdMiddleware";
 import {rightMiddleware} from "./middlewares/rightMiddleware";
 import {logMiddleware} from "./middlewares/logMiddleware";
 import {commandsListForAuthorizeUser} from "./commands/commandsListForAuthorizeUser";
+import {addMessageServiceMiddleware} from "./middlewares/addMessageServiceMiddleware";
 
 /**
  * Класс для инициализации телеграм бота
@@ -25,6 +26,7 @@ export class Bot {
         this.bot.use(handleException) //миделфэйр для обработки ошибок что-бы бот не дох когда что-то ловит
         this.bot.use(checkChatIdMiddleware)
         this.bot.use(logMiddleware)
+        this.bot.use(addMessageServiceMiddleware)
         this.commands = commandsList(this.bot) //Лист команд импортируемый из функций
         this.authCommands = commandsListForAuthorizeUser(this.bot)
     }
@@ -33,6 +35,20 @@ export class Bot {
      * инициализация команд бота
      */
     init(): void {
+        this.bot.settings(async (botCrx) =>{
+            await botCrx.telegram.setMyCommands([
+                {
+                    command: '/start',
+                    description: 'начать'
+                },
+                {
+                    command: '/info',
+                    description: 'Информационная справка'
+                }
+            ])
+            return botCrx.reply("Ok");
+        })
+
         for (const command of this.commands) {
             command.handle();
         }

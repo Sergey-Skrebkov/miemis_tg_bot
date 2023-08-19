@@ -18,6 +18,4 @@ export class AcceptContactCommand extends Command {
                 Markup.removeKeyboard())
         })
     }
-
-
 }

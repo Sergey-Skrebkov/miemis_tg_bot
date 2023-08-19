@@ -2,6 +2,7 @@ import {Command} from "../Command";
 import {Telegraf} from "telegraf";
 import {CustomBotContext} from "CustomBotContext";
 import {startInlineKeyboard} from "../../telegramElements/startInlineKeyboard";
+import {startKeyboardForAuthChat} from "../../telegramElements/startKeyboardForAuthChat";
 
 export class StartCommand extends Command {
     constructor(bot: Telegraf<CustomBotContext>) {
@@ -9,20 +10,20 @@ export class StartCommand extends Command {
     }
 
     handle(): void {
-        this.bot.start(async (botCtx) => {
+        this.bot.start(async (botCtx: CustomBotContext) => {
             if (!botCtx.ctx.checkedChatId) {
                 botCtx.reply(
-                    "Привет, я телеграм бот МИЭМИ. " +
-                    "Я создан для помощи студентам МИЭМИС. " +
-                    "Для начала ответь на мой вопрос. " +
-                    "Являешься ли ты студентом МИЭМИС?"
-                    , startInlineKeyboard())
+                    await botCtx.ctx.messageService.getMessage
+                    ('startMessageFotNotAuthUsers'),
+                    startInlineKeyboard())
                 return
             }
             botCtx.reply(
-                "Привет, я телеграм бот МИЭМИС. " +
-                "Я создан для помощи студентам МИЭМИС.",
+                await botCtx.ctx.messageService.getMessage
+                ('startMessageFotAuthUsers'),
+                    startKeyboardForAuthChat().oneTime().resize()
             )
+
         })
     }
 
