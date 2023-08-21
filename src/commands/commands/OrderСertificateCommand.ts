@@ -2,6 +2,7 @@ import {Command} from "../Command";
 import {Telegraf} from "telegraf";
 import {CustomBotContext} from "CustomBotContext";
 import {numberOfCertificateInlineKeyboard} from "../../telegramElements/numberOfCertificateInlineKeyboard";
+import {CertificateService} from "../../service/certificate/CertificateService";
 
 export class OrderCertificateCommand extends Command {
 
@@ -18,6 +19,7 @@ export class OrderCertificateCommand extends Command {
         })
 
         this.bot.action("one_certificate", async (botCtx: CustomBotContext) => {
+            const service = new CertificateService(botCtx.ctx)
             botCtx.reply("Заглушка")
         })
 

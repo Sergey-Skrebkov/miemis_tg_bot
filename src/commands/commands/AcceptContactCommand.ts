@@ -11,11 +11,14 @@ export class AcceptContactCommand extends Command {
 
     handle(): void {
         this.bot.on("contact", async (botCtx) => {
-            const contact = botCtx.message.contact;
-            const phoneNumber = contact.phone_number;
-            const service = new StudentService(botCtx.ctx)
-            botCtx.reply(await service.getAuthenticateMessage(phoneNumber),
-                Markup.removeKeyboard())
+            if (!botCtx.ctx.checkedChatId) {
+                const contact = botCtx.message.contact;
+                const phoneNumber = contact.phone_number;
+                const service = new StudentService(botCtx.ctx)
+                botCtx.reply(await service.getAuthenticateMessage(phoneNumber),
+                    Markup.removeKeyboard())
+                return
+            }
         })
     }
 }

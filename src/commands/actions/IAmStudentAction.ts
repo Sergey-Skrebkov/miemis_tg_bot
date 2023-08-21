@@ -11,10 +11,12 @@ export class IAmStudentAction extends Command {
 
     handle(): void {
         this.bot.action("i_am_miemis_student", async (botCtx: CustomBotContext) => {
-            botCtx.reply(
-                await botCtx.ctx.messageService.getMessage
-                ('iAmMiemisStudent'),
-                sendContactKeyboard().oneTime().resize())
+            if (!botCtx.ctx.checkedChatId) {
+                botCtx.reply(
+                    await botCtx.ctx.messageService.getMessage
+                    ('iAmMiemisStudent'),
+                    sendContactKeyboard().oneTime().resize())
+            }
         })
     }
 }

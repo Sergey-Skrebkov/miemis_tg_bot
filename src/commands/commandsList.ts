@@ -6,7 +6,7 @@ import {AcceptContactCommand} from "./commands/AcceptContactCommand";
 import {IAmStudentAction} from "./actions/IAmStudentAction";
 import {IAmNotStudentAction} from "./actions/IAmNotStudentAction";
 /**
- * Лист обычных команд
+ * Лист команд для всех пользователей
  */
 const commandsList = (bot: Telegraf<CustomBotContext>): Command[] => {
     return [

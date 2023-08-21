@@ -40,4 +40,18 @@ export class StudentDao {
         `, [chatId])
         return !isEmpty(row)
     }
+
+    public async getStudentByChatId(): Promise<StudentDto>{
+        return await this.ctx.db.querySelectOne(`
+            select id,
+                   chat_id              as "chatId",
+                   first_name           as "firstName",
+                   middle_name          as "middleName",
+                   last_name            as "lastName",
+                   login_asu            as login,
+                   password_for_sending as password
+            from student.student
+            where chat_id = $1
+        `[this.ctx.chatId])
+    }
 }
