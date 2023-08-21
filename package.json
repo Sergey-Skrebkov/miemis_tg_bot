@@ -27,6 +27,6 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "pg": "^8.11.3",
-    "telegraf": "^4.12.2"
+    "telegraf": "github:telegraf/telegraf"
   }
 }
