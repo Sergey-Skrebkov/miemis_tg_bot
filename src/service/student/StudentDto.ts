@@ -6,4 +6,5 @@ export interface StudentDto {
     lastName: string
     login: string
     password: string
+    approve: boolean
 }

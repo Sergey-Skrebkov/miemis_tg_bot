@@ -5,6 +5,7 @@ import {StartCommand} from "./commands/StartCommand";
 import {AcceptContactCommand} from "./commands/AcceptContactCommand";
 import {IAmStudentAction} from "./actions/IAmStudentAction";
 import {IAmNotStudentAction} from "./actions/IAmNotStudentAction";
+import {SendCodeCommand} from "./commands/SendCodeCommand";
 /**
  * Лист команд для всех пользователей
  */
@@ -13,7 +14,8 @@ const commandsList = (bot: Telegraf<CustomBotContext>): Command[] => {
         new StartCommand(bot),
         new AcceptContactCommand(bot),
         new IAmStudentAction(bot),
-        new IAmNotStudentAction(bot)
+        new IAmNotStudentAction(bot),
+        new SendCodeCommand(bot)
     ]
 }
 
