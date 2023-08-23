@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag miemis-bot:$(date +%s)
+      run: docker build . --file Dockerfile --tag ghcr.io/miemis_tg_bot/miemis-bot:$(date +%s)
