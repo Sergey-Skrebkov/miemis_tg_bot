@@ -11,7 +11,8 @@ export class SendCodeCommand extends Command{
     }
 
     handle(): void {
-        this.bot.hears(/code/i, async (botCtx) =>{
+        //Регулярка ищит название группы в сообщение
+        this.bot.hears(/^2\.\d{3}?(?:-\d)?[ми]?$/i, async (botCtx) =>{
             if(botCtx.ctx.checkedChatId) throw new ResponseError()
             const messageText = botCtx.message.text
             const service = new StudentService(botCtx.ctx)

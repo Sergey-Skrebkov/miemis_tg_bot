@@ -1,5 +1,7 @@
 import {RequestContext} from "RequestContext";
 import {StudentDao} from "./StudentDao";
+import process from "process";
+import bcrypt from 'bcrypt'
 
 export class StudentService {
     private readonly studentDao: StudentDao
@@ -9,21 +11,16 @@ export class StudentService {
     }
 
     public async addPhoneToStudent(phoneNumber: string): Promise<void> {
+        const {BCRIPT_SALT} = process.env
+        phoneNumber = await bcrypt.hash(phoneNumber, BCRIPT_SALT)
         const student = await this.studentDao.getStudentByPhoneNumber(phoneNumber)
-        if(!student) return
+        if (!student) return
         await this.studentDao.setChatIdForStudent(student.id, this.ctx.chatId)
     }
 
     public async checkCodeFromMessage(messageText: string): Promise<string> {
-        const codePattern = new RegExp(/code\s*(\w+)/i)
-        const groupEnglishName = codePattern.exec(messageText)[1]
-
-        console.log(groupEnglishName)
-
-        const student = await this.studentDao.getStudentByChatIdAndGroupName(groupEnglishName)
-
-        console.log(student)
-
+        messageText.toLowerCase()
+        const student = await this.studentDao.getStudentByChatIdAndGroupName(messageText)
         if (!student) {
             return await this.ctx.messageService.getMessage('dontHaveInformationAboutStudent')
         }

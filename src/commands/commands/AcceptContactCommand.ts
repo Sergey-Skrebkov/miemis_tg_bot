@@ -15,6 +15,7 @@ export class AcceptContactCommand extends Command {
             if (botCtx.ctx.checkedChatId) throw new ResponseError()
             const contact = botCtx.message.contact;
             const phoneNumber = contact.phone_number;
+            console.log(phoneNumber)
             const service = new StudentService(botCtx.ctx)
             await service.addPhoneToStudent(phoneNumber)
             botCtx.reply(await botCtx.ctx.messageService.getMessage('sendCode'),
