@@ -9,7 +9,7 @@ export class IAmNotStudentAction extends Command {
 
     handle(): void {
         this.bot.action("i_am_not_miemis_student", async (botCtx: CustomBotContext) => {
-            botCtx.reply(
+            await botCtx.reply(
                 await botCtx.ctx.messageService.getMessage
                 ('iAmNotMiemisStudent'))
         })

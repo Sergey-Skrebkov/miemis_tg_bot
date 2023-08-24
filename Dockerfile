@@ -12,4 +12,3 @@ RUN npm ci
 RUN npm run build-prod
 
 CMD node ./build/index.js
-

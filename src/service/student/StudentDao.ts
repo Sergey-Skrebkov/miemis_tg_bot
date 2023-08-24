@@ -28,6 +28,8 @@ export class StudentDao {
         await this.ctx.db.queryOne(`
             update student.student
             set password_for_sending = null,
+                phone_number = null,
+                second_phone_number = null,
                 approve = true,
                 student_take_password = true
             where id = $1

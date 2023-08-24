@@ -25,7 +25,6 @@ export class StudentService {
             return await this.ctx.messageService.getMessage('dontHaveInformationAboutStudent')
         }
         if (!student.password || student.approve) {
-            await this.studentDao.setChatIdForStudentByChatId(null, this.ctx.chatId)
             return await this.ctx.messageService.getMessage('dontHaveInformationAboutStudent')
         }
         await this.studentDao.deleteStudentPassword(student.id)

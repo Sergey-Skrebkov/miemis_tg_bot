@@ -9,8 +9,25 @@ import {RequestContext} from "RequestContext";
 export class CertificateService {
     private readonly studentDao: StudentDao
 
-    constructor(ctx: RequestContext) {
+    constructor(private readonly ctx: RequestContext) {
         this.studentDao = new StudentDao(ctx)
+    }
+
+    public async infoForStudents(certificate: number): Promise<string> {
+        const student = await this.studentDao.getStudentByChatId()
+        let certificateNumberText = ""
+        switch (certificate) {
+            case 2:
+                certificateNumberText = 'две справки'
+                break
+            case 3:
+                certificateNumberText = 'три справки'
+                break
+            default:
+                certificateNumberText = 'одна справка'
+        }
+        return await this.ctx.messageService.getMessageWithFormat('acceptCertificateOrder',
+            [certificateNumberText, student.lastName, (student.firstName.charAt(0) + '.')])
     }
 
     public async addCertificateTaskToBitrix(certificateCount: number): Promise<string> {
@@ -30,7 +47,8 @@ export class CertificateService {
         const url = await this.generateTaskUri(certificate);
 
         try {
-            await axios.get(url).then(() => {});
+            await axios.get(url).then(() => {
+            });
         } catch (err) {
             console.log(err)
             throw new ResponseError(`Что-то пошло не так, вы можете попробовать позже, 

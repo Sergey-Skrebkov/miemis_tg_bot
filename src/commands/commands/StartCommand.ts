@@ -1,8 +1,8 @@
 import {Command} from "../Command";
 import {Telegraf} from "telegraf";
 import {CustomBotContext} from "CustomBotContext";
-import {startInlineKeyboard} from "../../telegramElements/startInlineKeyboard";
-import {startKeyboardForAuthChat} from "../../telegramElements/startKeyboardForAuthChat";
+import {startInlineKeyboard} from "../telegramElements/startInlineKeyboard";
+import {startKeyboardForAuthChat} from "../telegramElements/startKeyboardForAuthChat";
 
 export class StartCommand extends Command {
     constructor(bot: Telegraf<CustomBotContext>) {

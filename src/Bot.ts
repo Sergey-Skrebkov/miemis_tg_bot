@@ -35,20 +35,6 @@ export class Bot {
      * инициализация команд бота
      */
     init(): void {
-        this.bot.settings(async (botCrx) =>{
-            await botCrx.telegram.setMyCommands([
-                {
-                    command: '/start',
-                    description: 'начать'
-                },
-                {
-                    command: '/info',
-                    description: 'Информационная справка'
-                }
-            ])
-            return botCrx.reply("Ok");
-        })
-
         for (const command of this.commands) {
             command.handle();
         }
@@ -56,6 +42,6 @@ export class Bot {
         for (const authCommand of this.authCommands) {
             authCommand.handle()
         }
-        this.bot.launch();
+        this.bot.launch()
     }
 }
